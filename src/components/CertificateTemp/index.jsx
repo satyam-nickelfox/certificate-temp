@@ -6,15 +6,30 @@ import {
   View,
   StyleSheet,
   Image,
+  Font,
 } from "@react-pdf/renderer";
 import certificateHeader from "../../assets/images/backgrounds/certificate_header.png";
+import normalFont from "../../Font/metropolis.light.otf";
+import BoldFont from "../../Font/metropolis.medium.otf";
+import ItalicFont from "../../Font/metropolis.light-italic.otf";
+import swachhBharat from "../../assets/images/logo/image_1.png";
+import makeIndia from "../../assets/images/logo/make_india.png";
+import tvsMotor from "../../assets/images/logo/TVS_Motor_logo.png";
+Font.register({
+  family: "Metropolies",
+  fonts: [
+    { src: normalFont, fontWeight: "normal" },
+    { src: BoldFont, fontWeight: "bold" },
+    { src: ItalicFont, fontWeight: "ultralight" },
+  ],
+});
 
 // Styling
 const styles = StyleSheet.create({
   page: {
     // flexDirection: "row",
     backgroundColor: "#fff",
-    padding: 10,
+    // padding: 10,
   },
   header: {
     marginBottom: 30,
@@ -75,6 +90,24 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     color: "#1F59AF",
   },
+  p_title_text: {
+    fontSize: 14,
+    fontFamily: "Metropolies", // Use the registered font family name
+    fontWeight: "normal",
+    lineHeight: "1.2px",
+  },
+  p_bold_text: {
+    fontSize: 14,
+    fontFamily: "Metropolies", // Use the registered font family name
+    fontWeight: "bold",
+    lineHeight: "1.2px",
+  },
+  p_italic_text: {
+    fontSize: 14,
+    fontFamily: "Metropolies", // Use the registered font family name
+    fontWeight: "ultralight",
+    lineHeight: "1.2px",
+  },
   container: {
     justifyContent: "center",
     alignItems: "center",
@@ -96,13 +129,13 @@ const styles = StyleSheet.create({
   },
   divider_box: {
     width: "75%",
-    marginTop : "16px"
+    marginTop: "16px",
   },
   bottom_line: {
     display: "flex",
-    flexDirection : "row",
+    flexDirection: "row",
     justifyContent: "center",
-    alignItems : "center",
+    alignItems: "center",
     marginBottom: "20px",
   },
   line: {
@@ -113,16 +146,31 @@ const styles = StyleSheet.create({
   dot: {
     width: "9px",
     height: "9px",
-    borderRadius : "50%",
+    borderRadius: "50%",
     backgroundColor: "#1F59AF",
-    margin : "0 10px"
+    margin: "0 10px",
+  },
+  paragraph_box: {
+    padding: "16px",
+  },
+  mt_paragraph_box: {
+    marginTop: "20px",
+  },
+  img_btm_box: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  img_logo_box: {
+    padding: "16px",
   },
 });
 
 // Custom certificate component
 const CertificateTemp = () => (
   <Document>
-    <Page style={styles.page}>
+    <Page size="A4" style={styles.page}>
       <View style={styles.img_container}>
         <Image style={styles.headerImage} src={certificateHeader} />
         <View style={styles.img_text_container}>
@@ -150,19 +198,43 @@ const CertificateTemp = () => (
           </View>
         </View>
       </View>
-      {/* <View style={styles.header}>
-        <Image
-          style={styles.headerImage}
-          src={makeIndia}
-        />
-      </View> */}
-
-      {/* Content */}
-      {/* <View style={styles.container}>
-        <Text style={styles.title}>Certificate of Achievement</Text>
-        <Text style={styles.subtitle}>Presented to</Text>
-        <Text style={styles.name}>John Doe</Text>
-      </View> */}
+      <View style={styles.paragraph_box}>
+        <View style={styles.text_box}>
+          <Text style={styles.p_title_text}>
+            This certifies that <Text style={styles.p_bold_text}>Satyam </Text>{" "}
+            has washed his 2 wheeler at the{" "}
+            <Text style={styles.p_bold_text}>TVSM Service Centre </Text>
+            using the <Text style={styles.p_bold_text}>BlueVerse </Text>{" "}
+            automated 2 wheeler vehicle washing machine and has conserved{" "}
+            <Text style={styles.p_bold_text}> 163 Lts </Text> of water recycling
+            more than <Text style={styles.p_bold_text}>98% </Text>of the water
+            used for the wash.
+          </Text>
+        </View>
+        <View style={styles.mt_paragraph_box}>
+          <Text style={styles.p_title_text}>
+            Your efforts in conserving water are commendable and we thank you
+            for taking this step in protecting our planet’s valuable resources.
+          </Text>
+        </View>
+        <View style={styles.mt_paragraph_box}>
+          <Text style={styles.p_italic_text}>
+            Every small change leads to a big impact! We sincerely thank you for
+            contributing to a sustainable future!
+          </Text>
+        </View>
+      </View>
+      <View style={styles.img_btm_box}>
+        <View style={styles.img_logo_box}>
+          <Image src={swachhBharat} />
+        </View>
+        <View style={styles.img_logo_box}>
+          <Image src={makeIndia} />
+        </View>
+        <View style={styles.img_logo_box}>
+          <Image src={tvsMotor} />
+        </View>
+      </View>
     </Page>
   </Document>
 );
