@@ -7,8 +7,20 @@ function App() {
   const handleShareClick = async () => {
     const certificatePdf = <CertificateTemp />;
     const blob = await pdf(certificatePdf).toBlob();
-    const blobUrl = URL.createObjectURL(blob);
-    window.open(blobUrl, "asda");
+    // const blobUrl = URL.createObjectURL(blob);
+    // window.open(blobUrl, "asda");
+    const filesArray = [
+      new File([blob], "certificate.pdf", { type: "application/pdf" }),
+    ];
+    if (navigator.share) {
+      await navigator.share({
+        title: "Share certificate ",
+        text: "Blueverse",
+        files: filesArray,
+      });
+    } else {
+      console.log("Web Share API not supported.");
+    }
     // try {
     //   if (navigator.share) {
     //     await navigator.share({ url: "blob:http://localhost:3000/45d70f1c-1478-4e9b-b3e5-9eccbb6b0827 " });
@@ -44,7 +56,15 @@ function App() {
           alignItems: "center",
         }}
       >
-        <button onClick={handleShareClick}>Share Certificate</button>
+        <button
+          onClick={handleShareClick}
+          style={{
+            width: "100%",
+            height: "100px",
+          }}
+        >
+          Share Certificate
+        </button>
       </div>
       <div style={{ display: "none" }}>
         <PDFViewer style={{ width: "100%", height: "100vh" }}>
